@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="fw-semibold text-center py-5">Profile</h2>
+            </div>
+        </div>
+        <div class="row offset-md-3">
+            <div class="col-md-8 col-sm-10">
+                <div class="card w-100 text-start">
+                    <div class="card-body">
+                        <div class="row py-2 text-center">
+                            <i class="bi bi-person-circle" style="font-size:50px"></i>
+                        </div>
+                        <div class="row py-2">
+                            <div class="offset-md-1 col-4">Username:</div>
+                            <div class="col text-center fw-semibold">{{ user.username }}</div>
+                        </div>
+                        <div class="row py-2">
+                            <div class="offset-md-1 col-4">Fullname:</div>
+                            <div class="col text-center fw-semibold">{{ user.first_name.capitalize }} {{ user.last_name.capitalize }}</div>
+                        </div>
+                        <div class="row py-2">
+                            <div class="offset-md-1 col-4">Email:</div>
+                            <div class="col text-center fw-semibold">{{ user.email }}</div>
+                        </div>
+                        <div class="row py-2">
+                            <div class="offset-md-1 col-4">Date joined:</div>
+                            <div class="col text-center fw-semibold">{{ user.date_joined|date:"F d, Y" }}</div>
+                        </div>
+                        <div class="row py-2">
+                            <div class="offset-md-1 col-4">Last login:</div>
+                            <div class="col text-center fw-semibold">{{ user.last_login }}</div>
+                        </div>
+                        {% if can_change_password %}
+                            <div class="row py-2">
+                                <div class="d-flex justify-content-evenly">
+                                    <a class="btn btn-outline-primary" href="{% url 'change_password' username=request.user.username %}">
+                                        Change password
+                                    </a>
+                                    <a class="btn btn-outline-danger" href="{% url 'logout' %}">
+                                        Logout
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

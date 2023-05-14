@@ -25,12 +25,12 @@
                             </a>
                         </li>
                         <li class="nav-item py-1 px-2">
-                            <a class="nav-link fw-semibold" href="{% url 'login' %}">
+                            <a class="nav-link fw-semibold" href="{% url 'profile' username=request.user.username %}">
                                 <i class="bi bi-person"></i> Profile
                             </a>
                         </li>
                         <li class="nav-item py-1 px-2">
-                            <a class="btn btn-outline-primary fw-semibold" href="{% url 'logout' %}">
+                            <a class="btn btn-outline-primary fw-semibold" href="{% url 'new_ad' %}">
                                 Place an ad
                             </a>
                         </li>

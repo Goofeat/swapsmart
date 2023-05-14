@@ -45,26 +45,24 @@ class LoginForm(AuthenticationForm):
 class AdForm(forms.ModelForm):
     class Meta:
         model = Ad
-        fields = ('category', 'title', 'description')
+        fields = ('image', 'title', 'category', 'description', 'condition', 'price', 'phone')
         labels = {
-            'category': 'Category',
+            'image': 'Image',
             'title': 'Title',
+            'category': 'Category',
             'description': 'Description',
-            'requirements': 'Requirements',
-            'responsibilities': 'Responsibilities',
-            'conditions': 'Conditions',
-            'skill': 'Skill',
-            'salary': 'Salary'
+            'condition': 'Condition',
+            'price': 'Price',
+            'phone': 'Phone',
         }
         widgets = {
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
             'category': forms.Select(attrs={'class': 'form-control'}),
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
-            'requirements': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
-            'responsibilities': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
-            'conditions': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
-            'skill': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
-            'salary': forms.NumberInput(attrs={'class': 'form-control'})
+            'condition': forms.Select(attrs={'class': 'form-control'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
 

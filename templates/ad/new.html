@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid text-center pt-5">
+        <h3 class="fw-semibold text-center py-5">
+            Add a new ad
+        </h3>
+
+        <div class="container col-md-4 d-flex justify-content-center">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group pt-2 text-start">
+                        {{ field.label_tag }}
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <button class="btn btn-outline-primary mt-3" type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

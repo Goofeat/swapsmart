@@ -28,7 +28,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.views import View
 from django.views.generic import TemplateView, FormView, DeleteView, UpdateView
 
-from SwapSmart.forms import RegistrationForm, ChangePasswordForm, LoginForm
+from SwapSmart.forms import RegistrationForm, ChangePasswordForm, LoginForm, AdForm
 from SwapSmart.models import Ad, Category
 from SwapSmart.token import account_activation_token
 
@@ -62,7 +62,7 @@ class LoginView(View):
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
                     login(request, user)
-                    return redirect('welcome')
+                    return redirect('index')
                 else:
                     form.add_error('password', 'Invalid password.')
         else:
@@ -143,16 +143,20 @@ class LogoutView(LoginRequiredMixin, View):
     def get(self, request):
         logout(request)
         messages.error(request, 'You have successfully logged out!')
-        return render(request, 'auth/logout.html')
+        return render(request, 'base.html', {'categories': Category.objects.all()})
 
 
 @method_decorator(login_required, name='dispatch')
 class ProfileView(View):
-    def get(self, request):
-        user = request.user
+    def get(self, request, username='a'):
+        if username != 'a':
+            user = User.objects.get(username=username)
+        else:
+            user = request.user
 
         context = {
             'user': user,
+            'can_change_password': username == request.user.username,
         }
         return render(request, 'profile.html', context)
 
@@ -214,11 +218,26 @@ def ad_list(request, category):
 
 
 def ad_detail(request, category, ad):
-    return render(request, 'detail.html')
+    return render(request, 'ad/detail.html')
 
 
 def new_ad(request):
-    return render(request, 'base.html')
+    if request.method == 'POST':
+        form = AdForm(request.POST, request.FILES)
+        if form.is_valid():
+            ad = form.save(commit=False)
+            ad.owner = request.user
+            ad.created_at = timezone.now()
+            if ad.category == 'For Nothing':
+                ad.price = 0
+            elif ad.price == 0:
+                ad.category = 'For Nothing'
+            ad.save()
+            messages.success(request, 'New ad has been added!')
+            return redirect('ad_detail', category=ad.category.url_name, ad=ad.pk)
+    else:
+        form = AdForm()
+    return render(request, 'ad/new.html', {'form': form})
 
 
 def delete_ad(request, pk):

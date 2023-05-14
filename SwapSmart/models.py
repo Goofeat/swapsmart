@@ -18,6 +18,8 @@ class Ad(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='listings/', null=True, blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=12)
+    condition = models.CharField(max_length=50, choices=(('new', 'New'), ('used', 'Used')))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 

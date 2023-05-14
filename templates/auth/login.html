@@ -29,7 +29,9 @@
                 </div>
             {% endif %}
             <button type="submit" class="btn btn-outline-primary offset-3 w-50">Login</button>
-            <br>New to SwapSmart? <a class="text-primary" href="{% url 'signup' %}">Register</a>
+            <div class="text-center py-3">
+                New to SwapSmart? <a class="text-primary" href="{% url 'signup' %}">Register</a>
+            </div>
         </form>
     </div>
 {% endblock %}
