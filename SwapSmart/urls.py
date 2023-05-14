@@ -6,7 +6,7 @@ from SwapSmart.views import IndexView
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('<str:category>/', views.ad_list, name='ad_list'),
-    path('<str:category>/<str:ad>/', views.ad_detail, name='ad_detail'),
+    path('<str:category>/<int:ad>/', views.ad_detail, name='ad_detail'),
     path('ad/', include(
         [
             path('new/', views.new_ad, name='new_ad'),

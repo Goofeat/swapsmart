@@ -214,7 +214,7 @@ def ad_list(request, category):
 
 
 def ad_detail(request, category, ad):
-    return render(request, 'base.html')
+    return render(request, 'detail.html')
 
 
 def new_ad(request):

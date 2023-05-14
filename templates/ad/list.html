@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-	Test
+	List
 {% endblock %}
 
 {% block content %}
@@ -9,14 +9,19 @@
 		<h2 class="fw-semibold text-center">
 			{{ category }}
 		</h2>
+        <hr>
 		{% for i in ads %}
             <div>
                 <div class="col text-center px-4">
-                    {% comment %} <a href="{% url  %}"> {% endcomment %}
+                    <a href="{% url  "ad_detail" category=category ad=i.pk%}"> 
                         <img src="{{ i.image.url }}" style="width: 100px;">
                         <div>{{ i.title }}</div>
-                        <div>{{ i.price }}</div>
-                    {% comment %} </a> {% endcomment %}
+                        {% if i.price != 0 %} 
+                            <div>{{ i.price }}</div>
+                        {% else %}
+                            <div class="text-success">For free</div>
+                        {% endif %}
+                    </a> 
                 </div>
             </div>
         {% endfor %}
