@@ -10,20 +10,22 @@
 			{{ category }}
 		</h2>
         <hr>
-		{% for i in ads %}
-            <div>
-                <div class="col text-center px-4">
-                    <a href="{% url  "ad_detail" category=category ad=i.pk%}"> 
-                        <img src="{{ i.image.url }}" style="width: 100px;">
-                        <div>{{ i.title }}</div>
-                        {% if i.price != 0 %} 
-                            <div>{{ i.price }}</div>
-                        {% else %}
-                            <div class="text-success">For free</div>
-                        {% endif %}
-                    </a> 
+		<div class="d-flex justify-content-evenly">
+            {% for i in ads %}
+                <div class="border border-black rounded ">
+                    <div class="col text-center px-4">
+                        <a href="{% url  "ad_detail" category=category ad=i.pk%}"> 
+                            <img src="{{ i.image.url }}" style="width: 100px;">
+                            <div>{{ i.title }}</div>
+                            {% if i.price != 0 %} 
+                                <div>{{ i.price }}</div>
+                            {% else %}
+                                <div class="text-success">For free</div>
+                            {% endif %}
+                        </a> 
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
 	</div>
 {% endblock %}
