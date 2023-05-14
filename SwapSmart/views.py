@@ -229,10 +229,10 @@ def new_ad(request):
             ad = form.save(commit=False)
             ad.owner = request.user
             ad.created_at = timezone.now()
-            if ad.category == 'For Nothing':
+            if ad.category.name == 'For Nothing':
                 ad.price = 0
             elif ad.price == 0:
-                ad.category = 'For Nothing'
+                ad.category = Category.objects.get(url_name='for_nothing')
             ad.save()
             messages.success(request, 'New ad has been added!')
             return redirect('ad_detail', category=ad.category.url_name, ad=ad.pk)

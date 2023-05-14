@@ -7,6 +7,27 @@
     --white: #FFFFFF;
 }
 
+#hr_b {
+    border-color: #8C52FF;
+    color: #8C52FF;
+    transition: all 0.5s;
+}
+
+#btn_s {
+    border-color: #8C52FF;
+    color: #8C52FF;
+    transition: all 0.5s;
+}
+
+#btn_s:hover {
+    color: #FFFFFF;
+    background-color: #8C52FF;
+}
+
+#ph::placeholder {
+    color: #8C52FF;
+}
+
 * {
     margin: 0;
     padding: 0;
