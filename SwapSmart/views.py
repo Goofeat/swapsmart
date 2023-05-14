@@ -40,6 +40,7 @@ class IndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         context.update({
             'categories': Category.objects.all(),
+            'ads': Ad.objects.all().order_by('?')[:5]
         })
         return context
 
@@ -251,3 +252,13 @@ def update_ad(request, pk):
 
 def send_ad(request, pk):
     return render(request, 'base.html')
+
+def search_view(request):
+    query = request.GET.get('query')  
+    search_results = Ad.objects.filter(title__icontains=query)
+    
+    context = {
+        'query': query,
+        'results': search_results,
+    }
+    return render(request, 'search_results.html', context)

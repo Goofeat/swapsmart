@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ query }}
+{% endblock %}
+
+{% block content %}
+    <hr>
+    <h2 class="m-3 text-center">Search Results for "<span class="text-success">{{ query }}</span>"</h2>
+    <hr>
+    <div class="col-10 offset-1">
+    {% for ad in results %}
+        <div class="row cols-1 py-4">
+            <div class="col mx-5">
+                <a href="{% url "ad_detail" category=ad.category.url_name ad=ad.pk %}">
+                    <div class="card" id="ca">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-3 w-25">
+                                    {% if ad.image %}
+                                        <img class="img-fluid"
+                                             style="height: 150px; width: 150px; object-fit: cover"
+                                             src="{{ ad.image.url }}"
+                                             alt="{{ ad.title }}">
+                                    {% else %}
+                                        <img class="img-fluid"
+                                             style="height: 150px; width: 150px; object-fit: cover"
+                                             src="https://via.placeholder.com/250"
+                                             alt="{{ ad.title }}">
+                                    {% endif %}
+                                </div>
+                                <div class="col-9">
+                                    <div class="row">
+                                        <div class="col-9 text-start p-0">{{ ad.title }}</div>
+                                        <div class="col text-end">
+                                            {% if ad.price != 0 %}
+                                                {{ ad.price }} ₸
+                                            {% else %}
+                                                <span class="text-success">For free</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="row h-75">
+                                        {% if ad.category.name != 'Animals' %}
+                                            <div class="badge rounded-pill bg-secondary col-1 h-25 py-2">
+                                                {{ ad.condition }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="row d-flex align-content-end">
+                                        <div class="col-9 text-secondary text-start p-0">
+                                            {{ ad.created_at }}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% empty %}
+            <div>No results found.</div>
+        {% endfor %}
+    </div>
+{% endblock %}

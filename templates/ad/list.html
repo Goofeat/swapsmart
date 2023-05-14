@@ -5,16 +5,17 @@
 {% endblock %}
 
 {% block additional %}
-    <div class="container text-center py-5">
+    <div class="container text-center py-2">
         <h2 class="fw-semibold text-center">
             {{ category }}
         </h2>
-        <div class="col-9">
+        <hr>
+        <div class="col-10 offset-1">
             {% for ad in ads %}
                 <div class="row cols-1 py-4">
                     <div class="col mx-5">
                         <a href="{% url "ad_detail" category=category ad=ad.pk %}">
-                            <div class="card">
+                            <div class="card" id="ca">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-3 w-25">
