@@ -7,6 +7,9 @@ class Category(models.Model):
     url_name = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.name
+
 
 class Ad(models.Model):
     title = models.CharField(max_length=255)

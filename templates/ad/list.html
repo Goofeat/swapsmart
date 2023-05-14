@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Test
+{% endblock %}
+
+{% block content %}
+	<div class="container text-center py-5">
+		<h2 class="fw-semibold text-center">
+			{{ category }}
+		</h2>
+		{% for i in ads %}
+            <div>
+                <div class="col text-center px-4">
+                    {% comment %} <a href="{% url  %}"> {% endcomment %}
+                        <img src="{{ i.image.url }}" style="width: 100px;">
+                        <div>{{ i.title }}</div>
+                        <div>{{ i.price }}</div>
+                    {% comment %} </a> {% endcomment %}
+                </div>
+            </div>
+        {% endfor %}
+	</div>
+{% endblock %}

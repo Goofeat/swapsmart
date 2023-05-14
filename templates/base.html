@@ -14,6 +14,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     {% bootstrap_javascript %}
     {% bootstrap_messages %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="page">
@@ -21,7 +24,23 @@
 
     <div class="content-wrapper">
         {% block content %}
-
+            <div class="pb-6 grid grid-cols-4 gap-4">
+                <hr>
+                <h2 class="text-center mt-3">Categories</h2>
+                <div class="container d-flex justify-content-center">
+                    <div class="row">
+                        {% for i in categories %}
+                            <div class="col text-center px-4">
+                                <a href="{% url "ad_list" category=i.url_name %}">
+                                    <img src="{{ i.image.url }}" style="width: 100px;">
+                                    <div>{{ i.name }}</div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <hr>
+            </div>
         {% endblock %}
     </div>
 

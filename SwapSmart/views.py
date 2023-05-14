@@ -29,7 +29,7 @@ from django.views import View
 from django.views.generic import TemplateView, FormView, DeleteView, UpdateView
 
 from SwapSmart.forms import RegistrationForm, ChangePasswordForm, LoginForm
-from SwapSmart.models import Category
+from SwapSmart.models import Ad, Category
 from SwapSmart.token import account_activation_token
 
 
@@ -39,7 +39,7 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'category_list': Category.objects.all(),
+            'categories': Category.objects.all(),
         })
         return context
 
@@ -205,7 +205,12 @@ class ExtendedEncoder(DjangoJSONEncoder):
 
 
 def ad_list(request, category):
-    return render(request, 'base.html')
+    ads = Ad.objects.filter(category__url_name=category)
+    context = {
+        'ads': ads,
+        'category': category.replace('_', ' ').capitalize()
+    }
+    return render(request, 'ad/list.html', context)
 
 
 def ad_detail(request, category, ad):

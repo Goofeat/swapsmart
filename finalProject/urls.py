@@ -8,12 +8,14 @@ from SwapSmart.views import IndexView, RegisterView, LoginView, LogoutView, Conf
     InvalidTokenView, ActivateView, ProfileView, ChangePasswordView
 from finalProject import settings
 
-urlpatterns = \
-    [
-        path('', include('SwapSmart.urls')),
+urlpatterns = [
         path('admin/', admin.site.urls),
-        path('login/', LoginView.as_view(), name='login'),
-        path('register/', RegisterView.as_view(), name='signup'),
+        path('accounts/', include(
+             [
+                path('login/', LoginView.as_view(), name='login'),
+                path('register/', RegisterView.as_view(), name='signup'),
+             ]
+        )),
         path('logout/', LogoutView.as_view(), name='logout'),
         path('profile/', include(
             [
@@ -21,6 +23,7 @@ urlpatterns = \
                 path('change-password/', ChangePasswordView.as_view(), name='change_password'),
             ]
         )),
+        path('', include('SwapSmart.urls')),
         # path('applications/', include(
         #     [
         #         path('', ApplicationListView.as_view(), name='applications'),
