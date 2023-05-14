@@ -211,6 +211,7 @@ class ExtendedEncoder(DjangoJSONEncoder):
 def ad_list(request, category):
     ads = Ad.objects.filter(category__url_name=category)
     context = {
+        'categories': Category.objects.all(),
         'ads': ads,
         'category': category.replace('_', ' ').capitalize()
     }

@@ -23,27 +23,33 @@
     {% include 'misc/header.html' %}
 
     <div class="content-wrapper">
-        {% block content %}
-            <div class="pb-6 grid grid-cols-4 gap-4">
-                <hr>
-                <h2 class="text-center mt-3">Categories</h2>
-                <div class="container d-flex justify-content-center">
-                    <div class="row">
-                        {% for i in categories %}
-                            <div class="col text-center px-4">
-                                <a href="{% url "ad_list" category=i.url_name %}">
-                                    <img src="{{ i.image.url }}" style="width: 100px;">
-                                    <div>{{ i.name }}</div>
-                                </a>
-                            </div>
-                        {% endfor %}
+        <section>
+            {% block content %}
+                <div class="pb-6 grid grid-cols-4 gap-4">
+                    <hr>
+                    <h2 class="text-center mt-3">Categories</h2>
+                    <div class="container d-flex justify-content-center">
+                        <div class="row">
+                            {% for i in categories %}
+                                <div class="col text-center px-4">
+                                    <a href="{% url "ad_list" category=i.url_name %}">
+                                        <img src="{{ i.image.url }}" style="width: 100px;">
+                                        <div>{{ i.name }}</div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
+                    <hr>
                 </div>
-                <hr>
-            </div>
-        {% endblock %}
-        <br>
-        <br>
+            {% endblock %}
+        </section>
+
+        <section>
+            {% block additional %}
+
+            {% endblock %}
+        </section>
     </div>
 
     {% include 'misc/footer.html' %}
