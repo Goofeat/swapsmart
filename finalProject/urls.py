@@ -19,8 +19,8 @@ urlpatterns = [
         path('logout/', LogoutView.as_view(), name='logout'),
         path('profile/', include(
             [
-                path('', ProfileView.as_view(), name='profile'),
-                path('change-password/', ChangePasswordView.as_view(), name='change_password'),
+                path('<str:username>/', ProfileView.as_view(), name='profile'),
+                path('<str:username>/change-password/', ChangePasswordView.as_view(), name='change_password'),
             ]
         )),
         path('', include('SwapSmart.urls')),
