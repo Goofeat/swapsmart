@@ -9,7 +9,12 @@
 
 #ca {
     border-color: #8C52FF;
-    border-width: 3px;
+    border-width: 2px;
+}
+
+#b_b {
+    background-color: black;
+    height: 2px;
 }
 
 #btn_s {
@@ -25,6 +30,10 @@
 
 #ph::placeholder {
     color: #8C52FF;
+}
+
+#ph {
+    border-color: #8C52FF;
 }
 
 * {

@@ -1,6 +1,6 @@
 {% load static %}
 
-<header class="py-3 navbar navbar-expand-md sticky-top border-bottom">
+<header class="py-3 navbar navbar-expand-md sticky-top border-bottom border-2 my-2">
     <div class="container">
         <a href="/" class="d-flex text-dark text-decoration-none">
             <img src="{% static 'logo.svg' %}" alt="logo" height="50">
@@ -30,8 +30,8 @@
                             </a>
                         </li>
                         <li class="nav-item py-1 px-2">
-                            <a class="btn btn-outline-primary fw-semibold" href="{% url 'new_ad' %}">
-                                Place an ad
+                            <a class="btn btn-outline-danger fw-semibold" href="{% url 'logout' %}">
+                                Logout
                             </a>
                         </li>
                     {% else %}
@@ -51,8 +51,8 @@
                             </a>
                         </li>
                         <li class="nav-item py-1 px-2">
-                            <a  id="btn_s" class="btn" href="{% url 'login' %}">
-                                Place an ad
+                            <a class="btn btn-outline-success" href="{% url 'login' %}">
+                                Login
                             </a>
                         </li>
                     {% endif %}

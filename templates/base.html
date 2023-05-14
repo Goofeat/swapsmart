@@ -24,30 +24,34 @@
     
 
     <div class="content-wrapper">
-        <section>
+        <section class="pt-2">
             {% block content %}
-                <div class="mx-5">
-                    <form method="get" class="d-flex justify-content-start mt-2"  action="{% url 'search' %}">
-                        <input name="query" class="w-25 form-control" type="text"placeholder="Type to search..." id="ph">
+                <div class="mx-5 container d-flex justify-content-between">
+                    <form method="get" class="d-flex justify-content-start"  action="{% url 'search' %}">
+                        <input name="query" class="w-50 form-control" type="text"placeholder="Type to search..." id="ph">
                         <button class="btn btn-outline-primary py-0 mx-3" id="btn_s">Search</button>
                     </form>
+                    <a class="btn btn-outline-primary fw-semibold" id="btn_s" href="{% url 'new_ad' %}">
+                        Place an ad
+                    </a>
                 </div>
                 <div class="pb-6 grid grid-cols-4 gap-4">
-                    <hr>
+                    <hr id="b_b">
                     <h2 class="text-center mt-3">Categories</h2>
+                    <hr>
                     <div class="container d-flex justify-content-center">
                         <div class="row">
                             {% for i in categories %}
                                 <div class="col text-center px-4">
                                     <a href="{% url "ad_list" category=i.url_name %}">
-                                        <img src="{{ i.image.url }}" style="width: 100px;">
+                                        <img src="{{ i.image.url }}" style="width: 50px;">
                                         <div>{{ i.name }}</div>
                                     </a>
                                 </div>
                             {% endfor %}
                         </div>
                     </div>
-                    <hr>
+                    <hr id="b_b">
                 </div>
             {% endblock %}
         </section>
