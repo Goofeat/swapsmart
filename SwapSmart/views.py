@@ -273,7 +273,7 @@ def search_view(request):
 
 @login_required
 def dashboard_view(request):
-    ads = Ad.objects.filter(created_by=request.user)
+    ads = Ad.objects.filter(owner=request.user)
     return render(request, 'dashboard.html', {
         'ads': ads,
     })
