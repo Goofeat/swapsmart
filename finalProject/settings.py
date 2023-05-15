@@ -20,7 +20,6 @@ EMAIL_PORT = 587
 ALLOWED_HOSTS = ['127.0.0.1']
 
 INSTALLED_APPS = [
-
     'django_bootstrap5',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -29,7 +28,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'SwapSmart.apps.SwapSmartConfig',
-    'chat.apps.ChatConfig',
 ]
 
 MIDDLEWARE = [
@@ -101,12 +99,3 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# CHANNEL_LAYERS = {
-#     'default': {
-#         'BACKEND': 'channels.layers.InMemoryChannelLayer',
-#         # 'CONFIG': {
-#         #     'hosts': [('127.0.0.1', 6379)],
-#         # }
-#     }
-# }
