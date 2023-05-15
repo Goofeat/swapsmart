@@ -34,9 +34,18 @@
                     <p class="card-subtitle mt-2" style="color: #8C52FF;"><strong class="text-black">Owner
                         name: </strong>{{ ad.owner }}</p>
                     <hr>
-                    <div class="d-flex justify-content-between">
-                        <a href="{% url 'message' %}" class="btn h-25 mt-4" id="btn_s">Message owner</a>
-                    </div>
+                    {% if ad.owner == request.user %}
+                        <div class="d-flex justify-content-end w-100">
+                            <button class="btn border rounded btn-outline-primary mx-3">Edit</button>
+                            <button class="btn border rounded btn-outline-danger">Delete</button>
+                        </div>
+                    {% else %}
+                        <div>
+                            <a href="{% if user.is_authenticated %} {% else %} {% url 'login' %} {% endif %}" class="nav-link fw-semibold position-relative">
+                                <i class="bi bi-heart"></i>
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

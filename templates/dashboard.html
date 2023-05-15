@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <h2 class="text-center">Your goods</h2>
+    <br>
+    {% if ads %}
+        {% for ad in ads %}
+            <div class="row cols-1 py-4">
+                <div class="col mx-5">
+                    <a href="{% url "ad_detail" category=category ad=ad.pk %}">
+                        <div class="card" id="ca">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-3 w-25">
+                                        {% if ad.image %}
+                                            <img class="img-fluid"
+                                                style="height: 150px; width: 150px; object-fit: cover"
+                                                src="{{ ad.image.url }}"
+                                                alt="{{ ad.title }}">
+                                        {% else %}
+                                            <img class="img-fluid"
+                                                style="height: 150px; width: 150px; object-fit: cover"
+                                                src="https://via.placeholder.com/250"
+                                                alt="{{ ad.title }}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="row">
+                                            <div class="col-9 text-start p-0">{{ ad.title }}</div>
+                                            <div class="col text-end">
+                                                {% if ad.price != 0 %}
+                                                    {{ ad.price }} ₸
+                                                {% else %}
+                                                    <span class="text-success">For free</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="row h-75">
+                                            {% if ad.category.name != 'Animals' %}
+                                                <div class="badge rounded-pill bg-secondary col-1 h-25 py-2">
+                                                    {{ ad.condition }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="row d-flex align-content-end">
+                                            <div class="col-9 text-secondary text-start p-0">
+                                                {{ ad.created_at }}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h2 class="text-center">You don't have any goods yet</h2>
+    {% endif %}
+{% endblock %}
+{% block additional %}{% endblock %}

@@ -271,5 +271,9 @@ def search_view(request):
     }
     return render(request, 'search_results.html', context)
 
-def message_view(request):
-    return render(request, 'message.html')
+@login_required
+def dashboard_view(request):
+    ads = Ad.objects.filter(created_by=request.user)
+    return render(request, 'dashboard.html', {
+        'ads': ads,
+    })
