@@ -31,8 +31,10 @@
                     <p class="card-subtitle mt-2" style="color: #8C52FF;"><strong class="text-black">Phone
                         number: </strong>{{ ad.phone }}</p>
                     <hr>
-                    <p class="card-subtitle mt-2" style="color: #8C52FF;"><strong class="text-black">Owner
-                        name: </strong>{{ ad.owner }}</p>
+                    <p class="card-subtitle mt-2" style="color: #8C52FF;">
+                        <strong class="text-black">Owner name:</strong>
+                        <a href="{% url 'profile' ad.owner.username %}">{{ ad.owner }}</a>
+                    </p>
                     <hr>
                     {% if ad.owner == request.user %}
                         <div class="d-flex justify-content-end w-100">
