@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid text-center pt-5">
+        <h3 class="fw-semibold text-center py-5">
+            Delete an ad
+        </h3>
+        <p>Are you sure you want to delete "{{ ad.title }}"?</p>
+        <div class="container col-md-4 d-flex justify-content-center">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <a href="{% url 'ad_detail' category=ad.category.url_name ad=ad.pk %}"
+                       class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional %}
+{% endblock %}

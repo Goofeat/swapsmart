@@ -24,9 +24,6 @@ class Ad(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
 
-class Transaction(models.Model):
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     ad = models.ForeignKey(Ad, on_delete=models.CASCADE)
-    buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='buyer_transactions')
-    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='seller_transactions')
-    transaction_date = models.DateTimeField()
-    is_completed = models.BooleanField(default=False)

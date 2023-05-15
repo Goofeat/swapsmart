@@ -2,6 +2,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from SwapSmart import views
 from SwapSmart.views import RegisterView, LoginView, LogoutView, ConfirmView, ActivatedView, \
     InvalidTokenView, ActivateView, ProfileView, ChangePasswordView
 from finalProject import settings
@@ -9,6 +10,7 @@ from finalProject import settings
 urlpatterns = \
     [
         path('admin/', admin.site.urls),
+        path('favorites/', views.favorites, name='favorites'),
         path('accounts/', include(
             [
                 path('login/', LoginView.as_view(), name='login'),
@@ -23,18 +25,6 @@ urlpatterns = \
             ]
         )),
         path('', include('SwapSmart.urls')),
-        # path('applications/', include(
-        #     [
-        #         path('', ApplicationListView.as_view(), name='applications'),
-        #         path('<int:enrollment_id>/', include(
-        #             [
-        #                 path('accept/', ApplicationAcceptView.as_view(), name='application_accept'),
-        #                 path('decline/', ApplicationDeclineView.as_view(), name='application_decline'),
-        #                 path('delete/', ApplicationDeleteView.as_view(), name='application_delete'),
-        #             ]
-        #         )),
-        #     ]
-        # )),
         path('confirm/', include(
             [
                 path('', ConfirmView.as_view(), name='confirm_email'),

@@ -29,7 +29,7 @@ from django.views import View
 from django.views.generic import TemplateView, FormView, DeleteView, UpdateView
 
 from SwapSmart.forms import RegistrationForm, ChangePasswordForm, LoginForm, AdForm
-from SwapSmart.models import Ad, Category
+from SwapSmart.models import Ad, Category, Favorite
 from SwapSmart.token import account_activation_token
 
 
@@ -223,9 +223,12 @@ def ad_list(request, category):
 
 
 def ad_detail(request, category, ad):
+    adtmp = Ad.objects.get(id=ad)
+
     context = {
         'categories': Category.objects.all(),
-        'ad': Ad.objects.get(id=ad),
+        'ad': adtmp,
+        'is_favorite': Favorite.objects.filter(user=request.user, ad=adtmp).exists()
     }
     return render(request, 'ad/detail.html', context)
 
@@ -249,16 +252,31 @@ def new_ad(request):
     return render(request, 'ad/new.html', {'form': form})
 
 
-def delete_ad(request, pk):
-    return render(request, 'base.html')
+@method_decorator(login_required, name='dispatch')
+class DeleteAdView(DeleteView):
+    model = Ad
+    success_url = reverse_lazy('index')
+    template_name = 'ad/delete.html'
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if os.path.exists(self.object.image.path):
+            os.remove(self.object.image.path)
+        success_url = self.get_success_url()
+        self.object.delete()
+        return redirect(success_url)
 
 
-def update_ad(request, pk):
-    return render(request, 'base.html')
+@method_decorator(login_required, name='dispatch')
+class UpdateAdView(SuccessMessageMixin, UpdateView):
+    model = Ad
+    form_class = AdForm
+    template_name = 'ad/update.html'
+    success_message = 'Ad has been updated successfully.'
 
+    def get_success_url(self):
+        return reverse_lazy('ad_detail', args=[self.object.category.url_name, self.object.pk])
 
-def send_ad(request, pk):
-    return render(request, 'base.html')
 
 def search_view(request):
     query = request.GET.get('query')  
@@ -271,9 +289,28 @@ def search_view(request):
     }
     return render(request, 'search_results.html', context)
 
-@login_required
-def dashboard_view(request):
-    ads = Ad.objects.filter(owner=request.user)
-    return render(request, 'dashboard.html', {
-        'ads': ads,
-    })
+
+def add_to_favorite(request, pk):
+    user = request.user
+    ad = Ad.objects.get(pk=pk)
+
+    Favorite.objects.update_or_create(user=user, ad=ad)
+
+    return redirect('ad_detail', category=ad.category.url_name, ad=ad.pk)
+
+
+def delete_from_favorite(request, pk):
+    user = request.user
+    ad = Ad.objects.get(pk=pk)
+
+    Favorite.objects.get(user=user, ad=ad).delete()
+
+    return redirect('ad_detail', category=ad.category.url_name, ad=ad.pk)
+
+
+def favorites(request):
+    favorite = Favorite.objects.filter(user=request.user)
+    context = {
+        'favs': favorite
+    }
+    return render(request, 'favorite.html', context)

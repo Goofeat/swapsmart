@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container text-center py-2">
+        <h2 class="fw-semibold text-center">
+            Favorites
+        </h2>
+        <br>
+        <div class="col-10 offset-1">
+            {% for fav in favs %}
+                <div class="row cols-1 py-4">
+                    <div class="col mx-5">
+                        <a href="{% url "ad_detail" category=fav.ad.category.url_name ad=fav.ad.pk %}">
+                            <div class="card" id="ca">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-3 w-25">
+                                            {% if fav.ad.image %}
+                                                <img class="img-fluid"
+                                                     style="height: 150px; width: 150px; object-fit: cover"
+                                                     src="{{ fav.ad.image.url }}"
+                                                     alt="{{ fav.ad.title }}">
+                                            {% else %}
+                                                <img class="img-fluid"
+                                                     style="height: 150px; width: 150px; object-fit: cover"
+                                                     src="https://via.placeholder.com/250"
+                                                     alt="{{ fav.ad.title }}">
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="row">
+                                                <div class="col-9 text-start p-0">{{ fav.ad.title }}</div>
+                                                <div class="col text-end">
+                                                    {% if fav.ad.price != 0 %}
+                                                        {{ fav.ad.price }} ₸
+                                                    {% else %}
+                                                        <span class="text-success">For free</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="row h-75">
+                                                {% if fav.ad.category.name != 'Animals' %}
+                                                    <div class="badge rounded-pill bg-secondary col-1 h-25 py-2">
+                                                        {{ fav.ad.condition }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="row d-flex align-content-end">
+                                                <div class="col-9 text-secondary text-start p-0">
+                                                    {{ fav.ad.created_at }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional %}
+{% endblock %}

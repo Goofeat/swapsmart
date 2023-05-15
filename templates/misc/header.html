@@ -15,12 +15,7 @@
                 <ul class="navbar-nav text-center">
                     {% if user.is_authenticated %}
                         <li class="nav-item py-1 px-2">
-                            <a href="{% url 'dashboard' %}" class="nav-link fw-semibold">
-                                <i class="bi bi-chat"></i> Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item py-1 px-2">
-                            <a href="{% url 'index' %}" class="nav-link fw-semibold position-relative">
+                            <a href="{% url 'favorites' %}" class="nav-link fw-semibold position-relative">
                                 <i class="bi bi-heart"></i>
                             </a>
                         </li>

@@ -36,14 +36,26 @@
                     <hr>
                     {% if ad.owner == request.user %}
                         <div class="d-flex justify-content-end w-100">
-                            <button class="btn border rounded btn-outline-primary mx-3">Edit</button>
-                            <button class="btn border rounded btn-outline-danger">Delete</button>
+                            <a href="{% url 'update_ad' pk=ad.pk %}" class="btn border rounded btn-outline-primary mx-3">Edit</a>
+                            <a href="{% url 'delete_ad' pk=ad.pk %}" class="btn border rounded btn-outline-danger">Delete</a>
                         </div>
                     {% else %}
                         <div>
-                            <a href="{% if user.is_authenticated %} {% url 'index' %} {% else %} {% url 'login' %} {% endif %}" class="nav-link fw-semibold position-relative">
-                                <i class="bi bi-heart"></i>
-                            </a>
+                            {% if user.is_authenticated %}
+                                {% if is_favorite %}
+                                    <a href="{% url 'delete_favorite' pk=ad.pk %}" class="nav-link fw-semibold position-relative">
+                                        <i class="bi bi-heart-fill text-danger" style="font-size: 30px;"></i>
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'add_to_favorite' pk=ad.pk %}" class="nav-link fw-semibold position-relative">
+                                        <i class="bi bi-heart" style="font-size: 30px;"></i>
+                                    </a>
+                                {% endif %}
+                            {% else %}
+                                <a href="{% url 'login' %}" class="nav-link fw-semibold position-relative">
+                                    <i class="bi bi-heart" style="font-size: 30px;"></i>
+                                </a>
+                            {% endif %}
                         </div>
                     {% endif %}
                 </div>
