@@ -1,11 +1,32 @@
 {% extends 'base.html' %}
 
 {% block title %}
-	Detail
+	{{ ad.title }}
 {% endblock %}
 
 {% block additional %}
-    <div class="col-10 offset-1">
-
+    <div class="col-10 offset-1 mb-5">
+        <div class="card">
+            <h5 class="card-header">{{ ad.title }}</h5>
+            <div class="card-body d-flex justify-content-between">
+                <img src="{{ ad.image.url }}" class="card-img-center img-fluid mt-3 mx-5" style="height: 300px; width: fit-content; max-width:400px; object-fit: cover">
+                <div class="w-50">
+                    <p class="card-subtitle font-light" style="color: #8C52FF;"><strong class="text-black">Description: </strong><br>{{ ad.description }}</p>
+                    <hr>
+                    <p class="mt-2" id="tt" style="color: #8C52FF;"><strong class="text-black">Price: </strong>{{ ad.price }}</p>
+                    <hr>
+                    <p class="card-subtitle mt-2" style="color: #8C52FF;"><strong class="text-black">Phone number: </strong>{{ ad.phone }}</p>
+                    <hr>
+                    <p class="card-subtitle mt-2" style="color: #8C52FF;"><strong class="text-black">Owner name: </strong>{{ ad.owner }}</p>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        {% if ad.category.url_name != 'animals' %}
+                            <span class="badge bg-secondary rounded-pill h-25">{{ ad.condition }}</span>
+                        {% endif %}
+                        <a href="{% url 'message' %}" class="btn h-25 mt-4" id="btn_s">Message owner</a>
+                    </div>
+                </div>
+              </div>
+        </div>
     </div>
 {% endblock %}

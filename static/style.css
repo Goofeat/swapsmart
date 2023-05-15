@@ -17,10 +17,19 @@
     height: 2px;
 }
 
+#hh {
+    border: 2px solid #8C52FF;
+    border-radius: 20px;
+    color: #8C52FF;
+    width: fit-content;
+}
+
 #btn_s {
     border-color: #8C52FF;
     color: #8C52FF;
-    transition: all 0.5s;
+    height: fit-content;
+    padding: auto;
+    transition: all 0.3s;
 }
 
 #btn_s:hover {

@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block Title %}Home{% endblock %} | SwapSmart</title>
+    <title>{% block title %}Home{% endblock %} | SwapSmart</title>
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
@@ -29,7 +29,7 @@
                 <div class="mx-5 container d-flex justify-content-between">
                     <form method="get" class="d-flex justify-content-start"  action="{% url 'search' %}">
                         <input name="query" class="w-50 form-control" type="text"placeholder="Type to search..." id="ph">
-                        <button class="btn btn-outline-primary py-0 mx-3" id="btn_s">Search</button>
+                        <button class="btn btn-outline-primary py-0 mx-3 h-100" id="btn_s">Search</button>
                     </form>
                     <a class="btn btn-outline-primary fw-semibold" id="btn_s" href="{% url 'new_ad' %}">
                         Place an ad
@@ -37,8 +37,7 @@
                 </div>
                 <div class="pb-6 grid grid-cols-4 gap-4">
                     <hr id="b_b">
-                    <h2 class="text-center mt-3">Categories</h2>
-                    <hr>
+                    <h2 class="text-center mt-3">Categories</h2><br>
                     <div class="container d-flex justify-content-center">
                         <div class="row">
                             {% for i in categories %}
@@ -59,7 +58,7 @@
         <section>
             {% block additional %}
                 <h2 class="text-center mt-3">Recommended for you</h2>
-                <hr>
+                <br>
                 <div class="col-10 offset-1">
                     {% for ad in ads %}
                         <div class="row cols-1 py-4">

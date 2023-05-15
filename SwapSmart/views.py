@@ -220,7 +220,11 @@ def ad_list(request, category):
 
 
 def ad_detail(request, category, ad):
-    return render(request, 'ad/detail.html')
+    context = {
+        'categories': Category.objects.all(),
+        'ad': Ad.objects.get(id=ad),
+    }
+    return render(request, 'ad/detail.html', context)
 
 
 def new_ad(request):
@@ -260,5 +264,9 @@ def search_view(request):
     context = {
         'query': query,
         'results': search_results,
+        'ads': Ad.objects.all().order_by('?')[:5]
     }
     return render(request, 'search_results.html', context)
+
+def message_view(request):
+    return render(request, 'message.html')
