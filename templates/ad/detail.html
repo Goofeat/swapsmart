@@ -41,7 +41,7 @@
                         </div>
                     {% else %}
                         <div>
-                            <a href="{% if user.is_authenticated %} {% else %} {% url 'login' %} {% endif %}" class="nav-link fw-semibold position-relative">
+                            <a href="{% if user.is_authenticated %} {% url 'index' %} {% else %} {% url 'login' %} {% endif %}" class="nav-link fw-semibold position-relative">
                                 <i class="bi bi-heart"></i>
                             </a>
                         </div>
