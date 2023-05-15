@@ -20,8 +20,13 @@
                     <p class="card-subtitle font-light" style="color: #8C52FF;"><strong
                             class="text-black">Description: </strong><br>{{ ad.description }}</p>
                     <hr>
-                    <p class="mt-2" id="tt" style="color: #8C52FF;"><strong
-                            class="text-black">Price: </strong>{{ ad.price }} ₸</p>
+                    <p class="mt-2" id="tt" style="color: #8C52FF;">
+                        {% if ad.category.url_name == 'for_nothing' %}
+                            <span class="text-success">FREE!</span>
+                            {% else %}
+                            <span class="fw-bold text-black">Price: <span style="color: #8C52FF;">{{ ad.price }} ₸</span></span>
+                        {% endif %}
+                    </p>
                     <hr>
                     <p class="card-subtitle mt-2" style="color: #8C52FF;"><strong class="text-black">Phone
                         number: </strong>{{ ad.phone }}</p>

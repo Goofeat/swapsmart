@@ -1,5 +1,5 @@
+from django.contrib.auth.models import User
 from django.db import models
-from django.contrib.auth.models import AbstractUser, User
 
 
 class Category(models.Model):
@@ -30,11 +30,3 @@ class Transaction(models.Model):
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='seller_transactions')
     transaction_date = models.DateTimeField()
     is_completed = models.BooleanField(default=False)
-
-
-class Message(models.Model):
-    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
-    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages')
-    ad = models.ForeignKey(Ad, on_delete=models.CASCADE)
-    message_text = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)

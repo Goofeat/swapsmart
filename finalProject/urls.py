@@ -1,20 +1,20 @@
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth import views as auth_views
-from SwapSmart.forms import LoginForm
 
-from SwapSmart.views import IndexView, RegisterView, LoginView, LogoutView, ConfirmView, ActivatedView, \
+from SwapSmart.views import RegisterView, LoginView, LogoutView, ConfirmView, ActivatedView, \
     InvalidTokenView, ActivateView, ProfileView, ChangePasswordView
 from finalProject import settings
 
-urlpatterns = [
+urlpatterns = \
+    [
+        path('chat/', include('chat.urls')),
         path('admin/', admin.site.urls),
         path('accounts/', include(
-             [
+            [
                 path('login/', LoginView.as_view(), name='login'),
                 path('register/', RegisterView.as_view(), name='signup'),
-             ]
+            ]
         )),
         path('logout/', LogoutView.as_view(), name='logout'),
         path('profile/', include(

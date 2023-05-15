@@ -155,8 +155,11 @@ class ProfileView(View):
         else:
             user = request.user
 
+        ads = Ad.objects.filter(owner=user)
+
         context = {
             'user': user,
+            'ads': ads,
             'can_change_password': username == request.user.username,
         }
         return render(request, 'profile.html', context)
