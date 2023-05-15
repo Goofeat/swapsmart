@@ -224,15 +224,20 @@ def ad_list(request, category):
 
 def ad_detail(request, category, ad):
     adtmp = Ad.objects.get(id=ad)
+    if not request.user.is_anonymous:
+        is_favorite = Favorite.objects.filter(user=request.user, ad=adtmp).exists()
+    else:
+        is_favorite = False
 
     context = {
         'categories': Category.objects.all(),
         'ad': adtmp,
-        'is_favorite': Favorite.objects.filter(user=request.user, ad=adtmp).exists()
+        'is_favorite': is_favorite,
     }
     return render(request, 'ad/detail.html', context)
 
 
+@login_required
 def new_ad(request):
     if request.method == 'POST':
         form = AdForm(request.POST, request.FILES)
@@ -290,6 +295,7 @@ def search_view(request):
     return render(request, 'search_results.html', context)
 
 
+@login_required
 def add_to_favorite(request, pk):
     user = request.user
     ad = Ad.objects.get(pk=pk)
@@ -299,6 +305,7 @@ def add_to_favorite(request, pk):
     return redirect('ad_detail', category=ad.category.url_name, ad=ad.pk)
 
 
+@login_required
 def delete_from_favorite(request, pk):
     user = request.user
     ad = Ad.objects.get(pk=pk)
@@ -308,6 +315,7 @@ def delete_from_favorite(request, pk):
     return redirect('ad_detail', category=ad.category.url_name, ad=ad.pk)
 
 
+@login_required
 def favorites(request):
     favorite = Favorite.objects.filter(user=request.user)
     context = {
